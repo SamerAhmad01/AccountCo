@@ -1,10 +1,10 @@
 
-!(function($) {
+!(function ($) {
   "use strict";
 
   // Smooth scroll for the navigation menu and links with .scrollto classes
   var scrolltoOffset = $('#header').outerHeight() - 11;
-  $(document).on('click', '.nav-menu a, .mobile-nav a, .scrollto', function(e) {
+  $(document).on('click', '.nav-menu a, .mobile-nav a, .scrollto', function (e) {
     if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
       var target = $(this.hash);
       if (target.length) {
@@ -37,7 +37,7 @@
   });
 
   // Activate smooth scroll on page load with hash links in the url
-  $(document).ready(function() {
+  $(document).ready(function () {
     if (window.location.hash) {
       var initial_nav = window.location.hash;
       if ($(initial_nav).length) {
@@ -58,19 +58,19 @@
     $('body').prepend('<button type="button" class="mobile-nav-toggle d-lg-none"><i class="icofont-navigation-menu"></i></button>');
     $('body').append('<div class="mobile-nav-overly"></div>');
 
-    $(document).on('click', '.mobile-nav-toggle', function(e) {
+    $(document).on('click', '.mobile-nav-toggle', function (e) {
       $('body').toggleClass('mobile-nav-active');
       $('.mobile-nav-toggle i').toggleClass('icofont-navigation-menu icofont-close');
       $('.mobile-nav-overly').toggle();
     });
 
-    $(document).on('click', '.mobile-nav .drop-down > a', function(e) {
+    $(document).on('click', '.mobile-nav .drop-down > a', function (e) {
       e.preventDefault();
       $(this).next().slideToggle(300);
       $(this).parent().toggleClass('active');
     });
 
-    $(document).click(function(e) {
+    $(document).click(function (e) {
       var container = $(".mobile-nav, .mobile-nav-toggle");
       if (!container.is(e.target) && container.has(e.target).length === 0) {
         if ($('body').hasClass('mobile-nav-active')) {
@@ -84,31 +84,10 @@
     $(".mobile-nav, .mobile-nav-toggle").hide();
   }
 
-  // Navigation active state on scroll
-  var nav_sections = $('section');
-  var main_nav = $('.nav-menu, #mobile-nav');
-
-  $(window).on('scroll', function() {
-    var cur_pos = $(this).scrollTop() + 200;
-
-    nav_sections.each(function() {
-      var top = $(this).offset().top,
-        bottom = top + $(this).outerHeight();
-
-      if (cur_pos >= top && cur_pos <= bottom) {
-        if (cur_pos <= bottom) {
-          main_nav.find('li').removeClass('active');
-        }
-        main_nav.find('a[href="#' + $(this).attr('id') + '"]').parent('li').addClass('active');
-      }
-      if (cur_pos < 300) {
-        $(".nav-menu ul:first li:first").addClass('active');
-      }
-    });
-  });
+  
 
   // Toggle .header-scrolled class to #header when page is scrolled
-  $(window).scroll(function() {
+  $(window).scroll(function () {
     if ($(this).scrollTop() > 100) {
       $('#header').addClass('header-scrolled');
     } else {
@@ -121,7 +100,7 @@
   }
 
   // Back to top button
-  $(window).scroll(function() {
+  $(window).scroll(function () {
     if ($(this).scrollTop() > 100) {
       $('.back-to-top').fadeIn('slow');
     } else {
@@ -129,7 +108,7 @@
     }
   });
 
-  $('.back-to-top').click(function() {
+  $('.back-to-top').click(function () {
     $('html, body').animate({
       scrollTop: 0
     }, 1500, 'easeInOutExpo');
@@ -161,12 +140,12 @@
   });
 
   // Porfolio isotope and filter
-  $(window).on('load', function() {
+  $(window).on('load', function () {
     var portfolioIsotope = $('.portfolio-container').isotope({
       itemSelector: '.portfolio-item'
     });
 
-    $('#portfolio-flters li').on('click', function() {
+    $('#portfolio-flters li').on('click', function () {
       $("#portfolio-flters li").removeClass('filter-active');
       $(this).addClass('filter-active');
 
@@ -176,7 +155,7 @@
     });
 
     // Initiate venobox (lightbox feature used in portofilo)
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('.venobox').venobox({
         'share': false
       });
@@ -196,39 +175,38 @@
 
 
 
-function Home(){
+function Home() {
   fetch('https://desolate-caverns-46192.herokuapp.com/home')
-  .then(response => response.json())
-  .then(json => {
+    .then(response => response.json())
+    .then(json => {
 
-    document.getElementById('cta-p').innerHTML = json[0].CalltoAction;
+      document.getElementById('cta-p').innerHTML = json[0].CalltoAction;
 
-    document.getElementById('about-p').innerHTML = json[0].About;
+      document.getElementById('about-p').innerHTML = json[0].About;
 
-    document.getElementById('counter-clients').innerHTML = json[0].NbOfClients;
-    document.getElementById('counter-projects').innerHTML = json[0].NbOfProejcts;
-    document.getElementById('counter-hours').innerHTML = json[0].NbOfHours;
-    document.getElementById('counter-workers').innerHTML = json[0].NbOfWorkers;
+      document.getElementById('counter-clients').innerHTML = json[0].NbOfClients;
+      document.getElementById('counter-projects').innerHTML = json[0].NbOfProejcts;
+      document.getElementById('counter-hours').innerHTML = json[0].NbOfHours;
+      document.getElementById('counter-workers').innerHTML = json[0].NbOfWorkers;
 
-  })
+    })
 }
 
 
 
 
-function Team(){
+function Team() {
   fetch('https://desolate-caverns-46192.herokuapp.com/team')
-  .then(response => response.json())
-  .then(json => {
+    .then(response => response.json())
+    .then(json => {
 
-    var maindiv = document.getElementById('rowteam');
+      var maindiv = document.getElementById('rowteam');
 
-    for(let i = 0; i < json.length; i++){
-    var mydiv = document.createElement('div');
-    mydiv.innerHTML = `<div class="align-items-stretch">
-            <div class="member">
+      for (let i = 0; i < json.length; i++) {
+        var mydiv = document.createElement('div');
+        mydiv.innerHTML = `<div class="member">
               <div class="member-img">
-                <img src="assets/img/team/team-${i+1}.jpg" class="img-fluid" alt="">
+                <img src="assets/img/team/team-${i + 1}.jpg" class="img-fluid" alt="">
                 <div class="social">
                   <a href=""><i class="icofont-twitter"></i></a>
                   <a href=""><i class="icofont-facebook"></i></a>
@@ -240,41 +218,53 @@ function Team(){
                 <h4>${json[i].Name}</h4>
                 <span>${json[i].Position}</span>
               </div>
-            </div>
-          </div>`
+            </div>`
 
-    maindiv.appendChild(mydiv);
-    }
-    
-  })
+        mydiv.classList = "col-lg-6 col-md-6 align-items-stretch";
+        maindiv.appendChild(mydiv);
+      }
+
+    })
 }
 
 
 
 
-function Contact(){
+function Contact() {
   fetch('https://desolate-caverns-46192.herokuapp.com/contact')
-  .then(response => response.json())
-  .then(json => {
+    .then(response => response.json())
+    .then(json => {
 
-    document.getElementById('Address').innerHTML = json[0].Address;
-    document.getElementById('Email').innerHTML = json[0].Email;
-    document.getElementById('Phone').innerHTML = json[0].PhoneNumber;
+      document.getElementById('Address').innerHTML = json[0].Address;
+      document.getElementById('Email').innerHTML = json[0].Email;
+      document.getElementById('Phone').innerHTML = json[0].PhoneNumber;
 
-    
-  })
+
+    })
 }
 
-function Services(){
+function Services() {
   fetch('https://desolate-caverns-46192.herokuapp.com/services')
-  .then(response => response.json())
-  .then(json => {
+    .then(response => response.json())
+    .then(json => {
+      var maindiv = document.getElementById('services-row');
 
-    for(let i = 0; i < json.length; i++){
-      document.getElementById('service' + (i+1)).innerHTML = `<h4>${json[i].Service}</h4>
-      <p>${json[i].ServiceDetails}</p>`
-    }
+      for (let i = 0; i < json.length; i++) {
+        var mydiv = document.createElement('div');
+        mydiv.innerHTML = `<div class="icon-box iconbox-${json[i].ServiceColor}">
+                           <div class="icon">
+                               <i class="bx bxl-${json[i].ServiceIcon}"></i>
+                           </div>
+                           <div><h4>${json[i].Service}</h4>
+                                <p>${json[i].ServiceDetails}
+                           </div>
+                           </div>`
 
-  })
+        mydiv.classList = "col-lg-4 col-md-6 d-flex align-items-stretch";
+        maindiv.appendChild(mydiv);
+      }
+
+
+    })
 }
 
