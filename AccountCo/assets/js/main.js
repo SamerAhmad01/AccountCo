@@ -253,7 +253,7 @@ function Services() {
         var mydiv = document.createElement('div');
         mydiv.innerHTML = `<div class="icon-box iconbox-${json[i].ServiceColor}">
                            <div class="icon">
-                               <i class="bx bxl-${json[i].ServiceIcon}"></i>
+                               <i class="bx bxs-${json[i].ServiceIcon}"></i>
                            </div>
                            <div><h4>${json[i].Service}</h4>
                                 <p>${json[i].ServiceDetails}
